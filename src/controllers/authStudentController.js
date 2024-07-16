@@ -1,13 +1,22 @@
 const AuthService = require('../services/authStudentService');
 const moment = require('moment')
-
+const {authSchema} = require('../validators/authValidator')
 
 class AuthController {
   async register(req, res) {
     try {
-      const { email, password, lastName, firstName, sex, address, phoneNumber, country, birthDate } = req.body;
+
+      const validatedData = await authSchema.validateAsync(req.body, { abortEarly: false });
+
+      const { birthDate } = req.body;
+      const date = moment(birthDate, 'DD-MM-YYYY', true);
+      if (!date.isValid()) {
+        throw new Error("Birth Date must be a valid date in the format DD-MM-YYYY");
+      }
+      const formattedBirthDate = date.toISOString();
+
+      const { email, password, lastName, firstName, sex, address, phoneNumber, country} = validatedData;
       const profilePicture = req.file ? req.file.path : '';
-      const formattedBirthDate = moment(birthDate, 'DD-MM-YYYY').toISOString(); 
 
       const userData = { email, password };
       const studentData = { lastName, firstName, sex, address, phoneNumber, country, birthDate: formattedBirthDate, profilePicture };
@@ -20,7 +29,12 @@ class AuthController {
       // console.log(newUser)
       res.status(201).json({ user: newUser, student: newStudent });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+        if (error.isJoi) {
+          const errorMessage = error.details.map((detail) => detail.message).join('; ');
+          res.status(400).json({ error: errorMessage });
+        } else {
+            res.status(400).json({ error: error.message });
+        }    
     }
   }
 
