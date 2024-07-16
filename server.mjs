@@ -1,8 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import authStudentRouter from './src/routers/authStudentRouter.js';
 import authUniversityRouter from './src/routers/authUniversityRouter.js';
@@ -15,16 +13,12 @@ import ProgramRouter from './src/routers/programRouter.js';
 dotenv.config();
 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use("/api/users/students", authStudentRouter);
 app.use("/api/universities/auth", authUniversityRouter);
 app.use("/api/users/students", StudentRouter);
