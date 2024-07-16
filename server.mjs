@@ -1,5 +1,5 @@
 import express from 'express';
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -12,6 +12,8 @@ import AdmissionRouter from './src/routers/admissionRouter.js'
 import CourseRouter from './src/routers/courseRouter.js';
 import DegreeRouter from './src/routers/degreeRouter.js';
 import ProgramRouter from './src/routers/programRouter.js';
+dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
