@@ -16,6 +16,7 @@ AdmissionRouter.put('/:id',upload.fields([
 
 
 AdmissionRouter.use(verifyRole( ['ROLE_ADMIN'] ));
+
 AdmissionRouter.get('/', AdmissionController.getAllAdmissions);
 AdmissionRouter.get('/:id', AdmissionController.getAdmissionById);
 AdmissionRouter.delete('/:id', AdmissionController.deleteAdmission);

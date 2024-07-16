@@ -40,6 +40,16 @@ class StudentController {
       res.status(404).json({ error: error.message });
     }
   }
+
+  async enrollInCourse(req, res) {
+    try {
+      const { studentId, courseId } = req.body;
+      const enrollment = await StudentService.enrollInCourse(studentId, courseId);
+      res.status(201).json(enrollment);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new StudentController();

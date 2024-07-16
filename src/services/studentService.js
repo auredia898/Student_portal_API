@@ -1,5 +1,6 @@
-const { Student, User } = require('../models/index');
+const { Student, User, CourseStudent, CourseProgram } = require('../models/index');
 const bcrypt = require('bcrypt');
+const validateEnrollment = require('../utils/enrollmentToCourseValidation')
 
 class StudentService {
   async getAllStudents() {
@@ -47,6 +48,14 @@ class StudentService {
     await student.destroy();
     await user.destroy();
     return student;
+  }
+
+  async enrollInCourse(studentId, courseId) {
+
+    await validateEnrollment(studentId, courseId);
+
+    const enrollment = await CourseStudent.create({ studentId, courseId });
+    return enrollment;
   }
 }
 
