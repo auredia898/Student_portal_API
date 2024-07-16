@@ -1,5 +1,5 @@
 const { Student, User, CourseStudent, CourseProgram } = require('../models/index');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const validateEnrollment = require('../utils/enrollmentToCourseValidation')
 
 class StudentService {
