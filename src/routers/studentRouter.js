@@ -9,7 +9,10 @@ const StudentRouter = express.Router()
 
 StudentRouter.use(verifyToken);
 
+StudentRouter.get('/profile', StudentController.getProfile);
+
 StudentRouter.use(verifyRole( ['ROLE_STUDENT'] ));
+
 StudentRouter.get('/', StudentController.getAllStudents);
 StudentRouter.get('/:userId', StudentController.getStudentByUserId);
 StudentRouter.put('/:userId',upload.single('profilePicture'), StudentController.updateStudent);

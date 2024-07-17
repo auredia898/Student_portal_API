@@ -50,6 +50,16 @@ class StudentController {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async getProfile(req, res) {
+    try {
+      const userId = req.user.userId; 
+      const profile = await StudentService.getProfile(userId);
+      res.status(200).json(profile);
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new StudentController();

@@ -57,6 +57,18 @@ class StudentService {
     const enrollment = await CourseStudent.create({ studentId, courseId });
     return enrollment;
   }
+
+  async getProfile(userId) {
+    const student = await Student.findOne({
+      where: { userId },
+      include: [{ model: User, attributes: ['id', 'email', 'role'] }],
+    });
+    if (!student) {
+      throw new Error('Student not found');
+    }
+    return student;
+  }
+  
 }
 
 module.exports = new StudentService();
