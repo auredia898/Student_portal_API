@@ -5,7 +5,9 @@ This project enables students to view universities and apply for admission to th
 As a student, you can register to take one or more courses belonging to the university that has accepted your admission. You can also modify your profile.
 
 ## Facility:
-1-  *Clone the repository:*  **https://github.com/auredia898/Student_portal_API.git**
+1-  *Clone the repository:*  ```
+                                **git clone https://github.com/auredia898/Student_portal_API.git**
+                             ```
 2-  *install dependencies:*  **npm install** 
 3-  *start the project:*  **npm run dev** 
 
